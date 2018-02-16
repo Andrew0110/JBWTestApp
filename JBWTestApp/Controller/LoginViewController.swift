@@ -28,7 +28,7 @@ class LoginViewController: UIViewController {
         
         setupUI()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(logout), name: NSNotification.Name(rawValue: kNCUserLoggedOut), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(logout), name: NSNotification.Name(rawValue: Constants.kNCUserLoggedOut), object: nil)
         
         if LoginManager.sharedManager.accessToken.count > 0,
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "LocalesViewController") as? LocalesViewController {

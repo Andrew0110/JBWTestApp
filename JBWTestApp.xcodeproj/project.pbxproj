@@ -16,7 +16,7 @@
 		1B97FCED2034F0E300BD9CEA /* OccuranceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B97FCEC2034F0E300BD9CEA /* OccuranceCell.swift */; };
 		1B97FCF12035965500BD9CEA /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B97FCF02035965500BD9CEA /* LoginManager.swift */; };
 		1B97FCF32035966B00BD9CEA /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B97FCF22035966B00BD9CEA /* NetworkManager.swift */; };
-		1B97FCF72035B16100BD9CEA /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B97FCF62035B16100BD9CEA /* constants.swift */; };
+		1B97FCF72035B16100BD9CEA /* Сonstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B97FCF62035B16100BD9CEA /* Сonstants.swift */; };
 		1B97FCF92035CA5400BD9CEA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B97FCF82035CA5400BD9CEA /* User.swift */; };
 		1B97FCFB2035D75600BD9CEA /* RoundedShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B97FCFA2035D75500BD9CEA /* RoundedShadowButton.swift */; };
 		1B97FCFF2036424900BD9CEA /* RoundedShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B97FCFE2036424900BD9CEA /* RoundedShadowView.swift */; };
@@ -39,7 +39,7 @@
 		1B97FCF02035965500BD9CEA /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		1B97FCF22035966B00BD9CEA /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1B97FCF52035ABA700BD9CEA /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B97FCF62035B16100BD9CEA /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
+		1B97FCF62035B16100BD9CEA /* Сonstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Сonstants.swift"; sourceTree = "<group>"; };
 		1B97FCF82035CA5400BD9CEA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1B97FCFA2035D75500BD9CEA /* RoundedShadowButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedShadowButton.swift; sourceTree = "<group>"; };
 		1B97FCFE2036424900BD9CEA /* RoundedShadowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 		1B97FCE72034EB9500BD9CEA /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				1B97FCF62035B16100BD9CEA /* constants.swift */,
+				1B97FCF62035B16100BD9CEA /* Сonstants.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -308,7 +308,7 @@
 				1B97FCF12035965500BD9CEA /* LoginManager.swift in Sources */,
 				1B97FD032036E5F800BD9CEA /* LocalesStore.swift in Sources */,
 				1B97FD012036E3D800BD9CEA /* LocalesViewController.swift in Sources */,
-				1B97FCF72035B16100BD9CEA /* constants.swift in Sources */,
+				1B97FCF72035B16100BD9CEA /* Сonstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

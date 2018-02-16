@@ -12,8 +12,4 @@ class OccuranceCell: UITableViewCell {
 
     @IBOutlet weak var characterLabel: UILabel?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 }

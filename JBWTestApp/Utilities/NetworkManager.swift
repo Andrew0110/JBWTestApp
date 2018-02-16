@@ -14,7 +14,7 @@ class NetworkManager {
     private init() {}
     
     func getText(for locale:String, with completion:@escaping (Any?)->()) -> Void {
-        let url = "\(kURLBase)\(kURLGetText)"
+        let url = "\(Constants.kURLBase)\(Constants.kURLGetText)"
         let headers = ["Authorization":"Bearer \(LoginManager.sharedManager.accessToken)"]
         let parameters = ["Locale":locale]
         

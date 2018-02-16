@@ -13,13 +13,12 @@ class LoginManager: NSObject {
     //MARK: - Properties
     var accessToken: String = ""
     var user: User?
-
-    //MARK: - StaticMethods
-    static let sharedManager = LoginManager()
     
     //MARK: - Methods
+    static let sharedManager = LoginManager()
+
     private override init() {
-        if let token = UserDefaults.standard.object(forKey: kUDAccessToken) as? String {
+        if let token = UserDefaults.standard.object(forKey: Constants.kUDAccessToken) as? String {
             self.accessToken = token
         } else {
             self.accessToken = ""
@@ -27,7 +26,7 @@ class LoginManager: NSObject {
     }
     
     func login(with email:String, _ password:String, _ completion:@escaping (Any?)->()) -> () {
-        let url = "\(kURLBase)\(kURLLogin)"
+        let url = "\(Constants.kURLBase)\(Constants.kURLLogin)"
         let parameters = ["email":email, "password":password]
 
         Alamofire.request(url,
@@ -40,7 +39,7 @@ class LoginManager: NSObject {
                 case .success:
                     if let json = response.result.value as? NSDictionary, let data = json["data"] as? [String:Any] {
                         self.accessToken = data["access_token"] as? String ?? ""
-                        UserDefaults.standard.set(self.accessToken, forKey: kUDAccessToken)
+                        UserDefaults.standard.set(self.accessToken, forKey: Constants.kUDAccessToken)
                         self.user = User(data)
                         completion(json)
                     }
@@ -54,7 +53,7 @@ class LoginManager: NSObject {
     }
     
     func signUp(_ name:String, _ email:String, _ password:String, _ completion:@escaping (Any?)->()) -> () {
-        let url = "\(kURLBase)\(kURLSignUp)"
+        let url = "\(Constants.kURLBase)\(Constants.kURLSignUp)"
         let parameters = ["email":email, "password":password, "name":name]
         
         Alamofire.request(url,
@@ -67,7 +66,7 @@ class LoginManager: NSObject {
                 case .success:
                     if let json = response.result.value as? NSDictionary, let data = json["data"] as? [String:Any] {
                         self.accessToken = data["access_token"] as? String ?? ""
-                        UserDefaults.standard.set(self.accessToken, forKey: kUDAccessToken)
+                        UserDefaults.standard.set(self.accessToken, forKey: Constants.kUDAccessToken)
                         self.user = User(data)
                         completion(json)
                     }
@@ -83,8 +82,8 @@ class LoginManager: NSObject {
     func logout() {
         self.user = nil
         self.accessToken = ""
-        UserDefaults.standard.removeObject(forKey: kUDAccessToken)
+        UserDefaults.standard.removeObject(forKey: Constants.kUDAccessToken)
         
-        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: kNCUserLoggedOut)))
+        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: Constants.kNCUserLoggedOut)))
     }
 }
