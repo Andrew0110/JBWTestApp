@@ -24,7 +24,6 @@ class LoginViewController: UIViewController {
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         setupUI()
         
@@ -76,7 +75,9 @@ class LoginViewController: UIViewController {
     
     //MARK: - Actions
     @IBAction func loginButtonClicked(_ sender: UIButton) {
-        let completion: (Any?)->() = { (jsonResponse) in
+        let completion: (Any?)->() = { [weak self] (jsonResponse) in
+            guard let strongSelf = self else { return }
+            
             guard let response = jsonResponse as? NSDictionary else {
                 return
             }
@@ -85,20 +86,14 @@ class LoginViewController: UIViewController {
                 return
             }
             
-            if !success, let errors = response["errors"] as? NSArray {
+            if !success, let errors = response["errors"] as? [Any] {
                 
-                guard let error = errors.firstObject as? NSDictionary else { return }
-                guard let name = error["name"] else { return }
-                guard let message = error["message"] else {return}
-                
-                let alert = UIAlertController(title: name as? String, message: message as? String, preferredStyle: .alert)
-                let cancelAction = UIAlertAction.init(title: "Ok", style: .cancel, handler: nil)
-                alert.addAction(cancelAction)
-                self.present(alert, animated: true, completion: nil)
+                let alert = AlertHandler.sharedManager.makeAlert(withErrors: errors)
+                strongSelf.present(alert, animated: true, completion: nil)
             }
             
-            if success, let vc = self.storyboard?.instantiateViewController(withIdentifier: "LocalesViewController") as? LocalesViewController {
-                self.navigationController?.pushViewController(vc, animated: true)
+            if success, let vc = strongSelf.storyboard?.instantiateViewController(withIdentifier: "LocalesViewController") as? LocalesViewController {
+                strongSelf.navigationController?.pushViewController(vc, animated: true)
             }
         }
         

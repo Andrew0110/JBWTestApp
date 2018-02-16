@@ -22,6 +22,7 @@
 		1B97FCFF2036424900BD9CEA /* RoundedShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B97FCFE2036424900BD9CEA /* RoundedShadowView.swift */; };
 		1B97FD012036E3D800BD9CEA /* LocalesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B97FD002036E3D800BD9CEA /* LocalesViewController.swift */; };
 		1B97FD032036E5F800BD9CEA /* LocalesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B97FD022036E5F800BD9CEA /* LocalesStore.swift */; };
+		1B97FD052037048500BD9CEA /* AlertHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B97FD042037048500BD9CEA /* AlertHandler.swift */; };
 		5E94FD0B6420383C44CC7B6E /* Pods_JBWTestApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44BFC5930AC7818ADF413BF9 /* Pods_JBWTestApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		1B97FCFE2036424900BD9CEA /* RoundedShadowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
 		1B97FD002036E3D800BD9CEA /* LocalesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalesViewController.swift; sourceTree = "<group>"; };
 		1B97FD022036E5F800BD9CEA /* LocalesStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalesStore.swift; sourceTree = "<group>"; };
+		1B97FD042037048500BD9CEA /* AlertHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHandler.swift; sourceTree = "<group>"; };
 		44BFC5930AC7818ADF413BF9 /* Pods_JBWTestApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JBWTestApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0514180560D8AE9D20B4A0A /* Pods-JBWTestApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JBWTestApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-JBWTestApp/Pods-JBWTestApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,6 +148,7 @@
 			children = (
 				1B97FCF02035965500BD9CEA /* LoginManager.swift */,
 				1B97FCF22035966B00BD9CEA /* NetworkManager.swift */,
+				1B97FD042037048500BD9CEA /* AlertHandler.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				1B97FCFF2036424900BD9CEA /* RoundedShadowView.swift in Sources */,
 				1B97FCEB2034ED5200BD9CEA /* OccurenceViewController.swift in Sources */,
 				1B97FCF32035966B00BD9CEA /* NetworkManager.swift in Sources */,
+				1B97FD052037048500BD9CEA /* AlertHandler.swift in Sources */,
 				1B97FCED2034F0E300BD9CEA /* OccuranceCell.swift in Sources */,
 				1B97FCF92035CA5400BD9CEA /* User.swift in Sources */,
 				1B97FCD32034EB1F00BD9CEA /* AppDelegate.swift in Sources */,

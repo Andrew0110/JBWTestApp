@@ -28,37 +28,25 @@ class OccurenceViewController: UIViewController {
     
     //MARK: - Networking
     func loadText() {
-        guard let currentLocale = self.locale else { return }
+        guard let currentLocale = locale else { return }
         
-        NetworkManager.sharedManager.getText(for: currentLocale) { (jsonResponse) in
+        NetworkManager.sharedManager.getText(for: currentLocale) { [weak self] (jsonResponse) in
+            guard let strongSelf = self else { return }
+            
             guard let response = jsonResponse as? NSDictionary, let str = response["data"] as? String else {
-                guard let response = jsonResponse as? NSDictionary, let errors = response["errors"] as? NSArray else {
+                guard let response = jsonResponse as? NSDictionary, let errors = response["errors"] as? [Any] else {
                     return
                 }
                 
-                guard let error = errors.firstObject as? NSDictionary else { return }
-                guard let status = error["status"] as? Int else { return }
-                guard let name = error["name"] as? String else { return }
-                guard let message = error["message"] as? String else {return}
-                
-                let alert = UIAlertController(title: name, message: message, preferredStyle: .alert)
-                let cancelAction = UIAlertAction.init(title: "Ok", style: .cancel, handler: nil)
-                let logoutAction = UIAlertAction.init(title: "Ok", style: .cancel, handler: { (action) in
-                    LoginManager.sharedManager.logout()
-                })
-                if status == 401 || status == 422 {
-                    alert.addAction(logoutAction)
-                } else {
-                    alert.addAction(cancelAction)
-                }
-                self.present(alert, animated: true, completion: nil)
+                let alert = AlertHandler.sharedManager.makeAlert(withErrors: errors)
+                strongSelf.present(alert, animated: true, completion: nil)
                 return
             }
             print(str)
-            self.charactersDict = self.stringToDict(str)
-            self.characters = Array(self.charactersDict.keys).sorted()
+            strongSelf.charactersDict = strongSelf.stringToDict(str)
+            strongSelf.characters = Array(strongSelf.charactersDict.keys).sorted()
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                strongSelf.tableView.reloadData()
             }
         }
     }
@@ -78,22 +66,23 @@ class OccurenceViewController: UIViewController {
     
     //MARK: - Helpers methods
     func stringToDict(_ str:String) -> [Character:Int] {
-        let letters = Array(str)
+        let letters = Array(str.uppercased())
         var dict = [Character:Int]()
-        for letter in letters {
-            if let numberOfChars = dict[letter]  {
-                dict[letter] = numberOfChars + 1
-            } else {
-                dict[letter] = 1
-            }
-        }
+        letters.forEach({ (letter) in
+                if let numberOfChars = dict[letter]  {
+                    dict[letter] = numberOfChars + 1
+                } else {
+                    dict[letter] = 1
+                }
+        })
         return dict
     }
 }
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
 extension OccurenceViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.characters.count
+        return characters.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -103,7 +92,7 @@ extension OccurenceViewController: UITableViewDelegate, UITableViewDataSource {
         
         let char = characters[indexPath.row]
         let number : Int = charactersDict[char] ?? 0
-        cell.characterLabel?.text = "\"\(char)\" - \(number) times"
+        cell.configure("\"\(char)\" - \(number) times")
         return cell
     }
     

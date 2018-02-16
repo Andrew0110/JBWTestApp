@@ -45,7 +45,7 @@ extension LocalesViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         let locale = self.locales[indexPath.row]
-        cell.characterLabel?.text = "\(locale)"
+        cell.configure("\(locale)")
         return cell
     }
     

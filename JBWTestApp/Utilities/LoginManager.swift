@@ -25,7 +25,7 @@ class LoginManager: NSObject {
         }
     }
     
-    func login(with email:String, _ password:String, _ completion:@escaping (Any?)->()) -> () {
+    func login(with email:String, _ password:String, _ completion:@escaping (Any?)->()) {
         let url = "\(Constants.kURLBase)\(Constants.kURLLogin)"
         let parameters = ["email":email, "password":password]
 
@@ -34,21 +34,7 @@ class LoginManager: NSObject {
                           parameters: parameters,
                           encoding: JSONEncoding.default)
             .responseJSON { response in
-                
-                switch (response.result) {
-                case .success:
-                    if let json = response.result.value as? NSDictionary, let data = json["data"] as? [String:Any] {
-                        self.accessToken = data["access_token"] as? String ?? ""
-                        UserDefaults.standard.set(self.accessToken, forKey: Constants.kUDAccessToken)
-                        self.user = User(data)
-                        completion(json)
-                    }
-                    
-                case .failure(let error):
-                    guard let statusCode = response.response?.statusCode else { return }
-                    let message = error.localizedDescription + "\nStatus code:\(statusCode)"
-                    print(message)
-                }
+                self.updateUser(response, completion)
         }
     }
     
@@ -61,29 +47,33 @@ class LoginManager: NSObject {
                           parameters: parameters,
                           encoding: JSONEncoding.default)
             .responseJSON { response in
-                
-                switch (response.result) {
-                case .success:
-                    if let json = response.result.value as? NSDictionary, let data = json["data"] as? [String:Any] {
-                        self.accessToken = data["access_token"] as? String ?? ""
-                        UserDefaults.standard.set(self.accessToken, forKey: Constants.kUDAccessToken)
-                        self.user = User(data)
-                        completion(json)
-                    }
-
-                case .failure(let error):
-                    guard let statusCode = response.response?.statusCode else { return }
-                    let message = error.localizedDescription + "\nStatus code:\(statusCode)"
-                    print(message)
-                }
+                self.updateUser(response, completion)
         }
     }
-
+    
     func logout() {
         self.user = nil
         self.accessToken = ""
         UserDefaults.standard.removeObject(forKey: Constants.kUDAccessToken)
         
         NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: Constants.kNCUserLoggedOut)))
+    }
+    
+    //MARK: - HelperMethods
+    private func updateUser(_ response: DataResponse<Any>,_ completion:@escaping (Any?)->()) {
+        switch (response.result) {
+        case .success:
+            if let json = response.result.value as? NSDictionary, let data = json["data"] as? [String:Any] {
+                self.accessToken = data["access_token"] as? String ?? ""
+                UserDefaults.standard.set(self.accessToken, forKey: Constants.kUDAccessToken)
+                self.user = User(data)
+                completion(json)
+            }
+            
+        case .failure(let error):
+            guard let statusCode = response.response?.statusCode else { return }
+            let message = error.localizedDescription + "\nStatus code:\(statusCode)"
+            print(message)
+        }
     }
 }
