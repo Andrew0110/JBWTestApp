@@ -11,7 +11,7 @@ import Alamofire
 
 class LoginManager: NSObject {
     //MARK: - Properties
-    var accessToken: String?
+    var accessToken: String = ""
     var user: User?
 
     //MARK: - StaticMethods
@@ -39,7 +39,7 @@ class LoginManager: NSObject {
                 switch (response.result) {
                 case .success:
                     if let json = response.result.value as? NSDictionary, let data = json["data"] as? [String:Any] {
-                        self.accessToken = data["access_token"] as? String
+                        self.accessToken = data["access_token"] as? String ?? ""
                         UserDefaults.standard.set(self.accessToken, forKey: kUDAccessToken)
                         self.user = User(data)
                         completion(json)
@@ -65,13 +65,13 @@ class LoginManager: NSObject {
                 
                 switch (response.result) {
                 case .success:
-                    if let json = response.result.value as? NSDictionary, let data = json["data"] as? NSDictionary {
-                        self.accessToken = data["access_token"] as? String
+                    if let json = response.result.value as? NSDictionary, let data = json["data"] as? [String:Any] {
+                        self.accessToken = data["access_token"] as? String ?? ""
                         UserDefaults.standard.set(self.accessToken, forKey: kUDAccessToken)
+                        self.user = User(data)
                         completion(json)
                     }
 
-                    
                 case .failure(let error):
                     guard let statusCode = response.response?.statusCode else { return }
                     let message = error.localizedDescription + "\nStatus code:\(statusCode)"

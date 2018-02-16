@@ -15,7 +15,7 @@ class NetworkManager {
     
     func getText(for locale:String, with completion:@escaping (Any?)->()) -> Void {
         let url = "\(kURLBase)\(kURLGetText)"
-        let headers = ["Authorization":"Bearer \(LoginManager.sharedManager.accessToken!)"]
+        let headers = ["Authorization":"Bearer \(LoginManager.sharedManager.accessToken)"]
         let parameters = ["Locale":locale]
         
         Alamofire.request(url,

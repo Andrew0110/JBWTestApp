@@ -24,12 +24,12 @@ struct User {
         } else {
             return nil
         }
-        self.name = dictionary["name"] as! String
-        self.email = dictionary["email"] as! String
-        self.accessToken = dictionary["access_token"] as! String
-        self.role = dictionary["role"] as! Int
-        self.status = dictionary["status"] as! Int
-        self.createdAt = dictionary["created_at"] as! Int
-        self.updatedAt = dictionary["updated_at"] as! Int
+        self.name = dictionary["name"] as? String ?? ""
+        self.email = dictionary["email"] as? String ?? ""
+        self.accessToken = dictionary["access_token"] as? String ?? ""
+        self.role = dictionary["role"] as? Int ?? 0
+        self.status = dictionary["status"] as? Int ?? 0
+        self.createdAt = dictionary["created_at"] as? Int ?? 0
+        self.updatedAt = dictionary["updated_at"] as? Int ?? 0
     }
 }
